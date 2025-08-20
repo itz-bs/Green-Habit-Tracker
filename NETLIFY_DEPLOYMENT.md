@@ -32,14 +32,16 @@ Build settings:
 Add these in Netlify dashboard → Site settings → Environment variables:
 
 ```
-VITE_FIREBASE_API_KEY=AIzaSyDcLcOUKSSafk1q1vH_B27trDGltfyZ67o
-VITE_FIREBASE_AUTH_DOMAIN=green-habit-tracker-4fc24.firebaseapp.com
-VITE_FIREBASE_PROJECT_ID=green-habit-tracker-4fc24
-VITE_FIREBASE_STORAGE_BUCKET=green-habit-tracker-4fc24.firebasestorage.app
-VITE_FIREBASE_MESSAGING_SENDER_ID=487389779503
-VITE_FIREBASE_APP_ID=1:487389779503:web:953bd02835e684bd8198da
-VITE_FIREBASE_MEASUREMENT_ID=G-E93P5ET046
+VITE_FIREBASE_API_KEY=your_api_key_here
+VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_project.firebasestorage.app
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+VITE_FIREBASE_APP_ID=your_app_id
+VITE_FIREBASE_MEASUREMENT_ID=your_measurement_id
 ```
+
+**⚠️ Important**: Copy the actual values from your local `.env` file
 
 ## ✅ Ready to Deploy!
 
