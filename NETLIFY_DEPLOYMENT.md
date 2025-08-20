@@ -41,7 +41,9 @@ VITE_FIREBASE_APP_ID=your_app_id
 VITE_FIREBASE_MEASUREMENT_ID=your_measurement_id
 ```
 
-**⚠️ Important**: Copy the actual values from your local `.env` file
+**⚠️ Important**: Copy the actual values from your local `.env.local` file
+
+**Note**: Firebase config values are safe to be public in client-side apps. Secrets scanning has been disabled in `netlify.toml`.
 
 ## ✅ Ready to Deploy!
 
