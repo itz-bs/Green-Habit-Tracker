@@ -10,13 +10,38 @@ export const useAuth = () => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser: FirebaseUser | null) => {
-      if (firebaseUser) {
-        const userData = await getCurrentUser(firebaseUser);
-        setUser(userData);
-      } else {
+      try {
+        if (firebaseUser) {
+          try {
+            const userData = await getCurrentUser(firebaseUser);
+            setUser(userData);
+          } catch (firestoreError) {
+            // If Firestore fails, create a basic user object
+            console.warn('Firestore not available, using basic user data');
+            const basicUser: User = {
+              id: firebaseUser.uid,
+              email: firebaseUser.email!,
+              name: firebaseUser.displayName || 'User',
+              joinDate: new Date().toISOString(),
+              greenScore: 0,
+              currentStreak: 0,
+              longestStreak: 0,
+              totalHabitsLogged: 0,
+              badges: [],
+              level: 1,
+              xp: 0
+            };
+            setUser(basicUser);
+          }
+        } else {
+          setUser(null);
+        }
+      } catch (error) {
+        console.error('Auth error:', error);
         setUser(null);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     });
 
     return unsubscribe;

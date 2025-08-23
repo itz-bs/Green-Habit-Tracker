@@ -44,7 +44,7 @@ export const SignUp: React.FC<SignUpProps> = ({ onSuccess, onBack }) => {
 
     try {
       await signUp(formData.email, formData.password, formData.name);
-      onSuccess();
+      // Don't call onSuccess - useAuth hook will handle navigation
     } catch (err: any) {
       setError(err.message || 'Sign up failed. Please try again.');
     } finally {
