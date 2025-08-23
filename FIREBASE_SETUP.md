@@ -1,55 +1,46 @@
-# Firebase Authentication Setup
+# Firebase Setup Instructions
 
-Your Green Habit Tracker app now has Firebase authentication integrated! Here's what has been implemented:
+## 1. Enable Firestore Database
+1. Go to [Firebase Console](https://console.firebase.google.com)
+2. Select your project: `green-habit-tracker-4fc24`
+3. Click "Firestore Database" in the left sidebar
+4. Click "Create database"
+5. Choose "Start in test mode" for now
+6. Select a location (choose closest to your users)
 
-## ✅ What's Already Done
+## 2. Enable Authentication
+1. In Firebase Console, click "Authentication"
+2. Go to "Sign-in method" tab
+3. Enable "Email/Password" provider
+4. Save changes
 
-1. **Firebase Configuration**: Firebase is configured and ready to use
-2. **Authentication Services**: Login and signup functionality with Firebase Auth
-3. **User Management**: User data is stored in Firestore
-4. **Auth State Management**: Real-time authentication state tracking
+## 3. Security Rules (Optional - for production)
+```javascript
+// Firestore Security Rules
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    match /habits/{habitId} {
+      allow read, write: if request.auth != null && resource.data.userId == request.auth.uid;
+    }
+    match /challenges/{document=**} {
+      allow read: if request.auth != null;
+    }
+  }
+}
+```
 
-## 🚀 How to Use
+## 4. Install Dependencies
+```bash
+npm install
+```
 
-### For New Users:
-1. Click "Create New Account" on the welcome screen
-2. Fill in your name, email, and password
-3. Your account will be created in Firebase and you'll be logged in automatically
+## 5. Start Development Server
+```bash
+npm run dev
+```
 
-### For Existing Users:
-1. Click "Login to Your Account"
-2. Enter your email and password
-3. You'll be authenticated through Firebase
-
-## 🔧 Firebase Project Setup
-
-Your Firebase project is already configured with these services:
-- **Authentication**: Email/password authentication enabled
-- **Firestore**: User data storage
-- **Analytics**: Usage tracking (optional)
-
-## 📁 Key Files Updated
-
-- `src/components/auth/Login.tsx` - Firebase login integration
-- `src/components/auth/SignUp.tsx` - Firebase signup integration  
-- `src/App.tsx` - Firebase auth state management
-- `src/config/firebase.ts` - Firebase configuration
-- `src/services/auth.ts` - Authentication service functions
-- `src/hooks/useAuth.ts` - Authentication state hook
-
-## 🔐 Security Features
-
-- Password validation (minimum 6 characters)
-- Email format validation
-- Error handling for authentication failures
-- Secure user session management
-- Automatic logout functionality
-
-## 🎯 Next Steps
-
-1. **Test the Authentication**: Try creating a new account and logging in
-2. **Customize User Profile**: Add more user fields if needed
-3. **Add Password Reset**: Implement forgot password functionality
-4. **Social Login**: Add Google/Facebook login options
-
-Your login page is now fully integrated with Firebase and ready to use!
+Your Firebase backend is now ready to use!

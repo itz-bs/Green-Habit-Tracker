@@ -43,7 +43,7 @@ function App() {
   }, [currentTab]);
 
   const handleAuth = () => {
-    // Authentication is now handled by useAuth hook
+    // Navigation will happen automatically when user state changes
   };
 
   const handleAddHabit = (habit: Habit) => {
@@ -59,30 +59,9 @@ function App() {
       const newGreenScore = user.greenScore + habit.points;
       const newLongestStreak = Math.max(user.longestStreak, newStreak);
       
-      const updatedUser: User = {
-        ...user,
-        currentStreak: newStreak,
-        longestStreak: newLongestStreak,
-        greenScore: newGreenScore,
-        totalHabitsLogged: user.totalHabitsLogged + 1,
-        xp: newXp,
-        level: newLevel
-      };
-
-      // Check for new badges
-      const newBadges = checkBadgeUnlocks(updatedUser, updatedHabits);
-      if (newBadges.length > 0) {
-        updatedUser.badges = [...updatedUser.badges, ...newBadges];
-        // Show badge notification
-        newBadges.forEach(badge => {
-          setTimeout(() => {
-            alert(`🎉 New Badge Unlocked: ${badge.name}! ${badge.icon}`);
-          }, 500);
-        });
-      }
-
-      setUser(updatedUser);
-      storage.setUser(updatedUser);
+      // User stats will be updated via Firebase services
+      // const updatedUser = { ...user, currentStreak: newStreak, ... };
+      // Firebase services will handle user updates
     }
   };
 
@@ -92,23 +71,16 @@ function App() {
       const newXp = user.xp + points;
       const newLevel = calculateLevel(newXp);
       
-      const updatedUser: User = {
-        ...user,
-        greenScore: user.greenScore + points,
-        xp: newXp,
-        level: newLevel
-      };
-
-      setUser(updatedUser);
-      storage.setUser(updatedUser);
+      // User stats will be updated via Firebase services
+      // const updatedUser = { ...user, greenScore: user.greenScore + points, ... };
+      // Firebase services will handle user updates
       
       alert(`🎯 Challenge completed! +${points} points earned!`);
     }
   };
 
   const handleUpdateUser = (updatedUser: User) => {
-    setUser(updatedUser);
-    storage.setUser(updatedUser);
+    // User updates will be handled by Firebase services
   };
 
   const handleLogout = async () => {

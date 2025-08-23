@@ -26,7 +26,7 @@ export const Login: React.FC<LoginProps> = ({ onSuccess, onBack }) => {
 
     try {
       await signIn(email, password);
-      onSuccess();
+      // Don't call onSuccess - useAuth hook will handle navigation
     } catch (err: any) {
       setError(err.message || 'Login failed. Please check your credentials.');
     } finally {
